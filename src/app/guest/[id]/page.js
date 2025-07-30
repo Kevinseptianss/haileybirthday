@@ -427,7 +427,7 @@ export default function GuestInvitation() {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-400 via-purple-500 to-pink-400 animate-pulse"></div>
                 
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 mb-6" 
+                  <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 mb-6" 
                       style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                     🎊 Countdown to Magic 🎊
                   </h3>
@@ -436,7 +436,7 @@ export default function GuestInvitation() {
                     <div className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-br from-pink-300/50 to-pink-400/50 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300"></div>
                       <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-pink-200 group-hover:scale-105 transition-transform duration-300">
-                        <div className="text-3xl font-bold text-pink-600 animate-pulse">{countdown.days}</div>
+                        <div className="text-2xl font-bold text-pink-600 animate-pulse">{countdown.days}</div>
                         <div className="text-xs font-medium text-pink-500 uppercase tracking-wide">Hari</div>
                       </div>
                     </div>
@@ -444,7 +444,7 @@ export default function GuestInvitation() {
                     <div className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-300/50 to-purple-400/50 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300"></div>
                       <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-purple-200 group-hover:scale-105 transition-transform duration-300">
-                        <div className="text-3xl font-bold text-purple-600 animate-pulse" style={{ animationDelay: '0.5s' }}>{countdown.hours}</div>
+                        <div className="text-2xl font-bold text-purple-600 animate-pulse" style={{ animationDelay: '0.5s' }}>{countdown.hours}</div>
                         <div className="text-xs font-medium text-purple-500 uppercase tracking-wide">Jam</div>
                       </div>
                     </div>
@@ -452,7 +452,7 @@ export default function GuestInvitation() {
                     <div className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-300/50 to-blue-400/50 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300"></div>
                       <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-blue-200 group-hover:scale-105 transition-transform duration-300">
-                        <div className="text-3xl font-bold text-blue-600 animate-pulse" style={{ animationDelay: '1s' }}>{countdown.minutes}</div>
+                        <div className="text-2xl font-bold text-blue-600 animate-pulse" style={{ animationDelay: '1s' }}>{countdown.minutes}</div>
                         <div className="text-xs font-medium text-blue-500 uppercase tracking-wide">Menit</div>
                       </div>
                     </div>
@@ -460,7 +460,7 @@ export default function GuestInvitation() {
                     <div className="relative group">
                       <div className="absolute inset-0 bg-gradient-to-br from-green-300/50 to-green-400/50 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300"></div>
                       <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 border border-green-200 group-hover:scale-105 transition-transform duration-300">
-                        <div className="text-3xl font-bold text-green-600 animate-pulse" style={{ animationDelay: '1.5s' }}>{countdown.seconds}</div>
+                        <div className="text-2xl font-bold text-green-600 animate-pulse" style={{ animationDelay: '1.5s' }}>{countdown.seconds}</div>
                         <div className="text-xs font-medium text-green-500 uppercase tracking-wide">Detik</div>
                       </div>
                     </div>
@@ -484,7 +484,7 @@ export default function GuestInvitation() {
             
             <div className="text-center mb-16 relative">
               <div className="inline-block relative">
-                <h3 className="text-5xl md:text-6xl pt-10 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 mb-4 drop-shadow-lg" 
+                <h3 className="text-3xl md:text-6xl pt-10 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 mb-4 drop-shadow-lg" 
                     style={{ 
                       fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive',
                       textShadow: '0 0 30px rgba(236, 72, 153, 0.3)'
@@ -513,12 +513,12 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📅</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-pink-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                      <h4 className="font-bold text-pink-800 text-2xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Special Date
                       </h4>
                       <div className="space-y-2">
-                        <p className="text-pink-700 font-bold text-2xl">8 Agustus 2025</p>
-                        <p className="text-pink-600 text-xl font-medium">Friday</p>
+                        <p className="text-pink-700 font-bold text-xl">8 Agustus 2025</p>
+                        <p className="text-pink-600 text-lg font-medium">Friday</p>
                         <p className="text-pink-500 text-sm font-medium mt-3">Click to add to calendar</p>
                       </div>
                     </div>
@@ -536,12 +536,12 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">🕕</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-purple-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                      <h4 className="font-bold text-purple-800 text-2xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Time
                       </h4>
                       <div className="space-y-2">
-                        <p className="text-purple-700 font-bold text-2xl">18:00 WIB</p>
-                        <p className="text-purple-600 text-xl font-medium">6:00 PM</p>
+                        <p className="text-purple-700 font-bold text-xl">18:00 WIB</p>
+                        <p className="text-purple-600 text-lg font-medium">6:00 PM</p>
                         <p className="text-purple-500 text-sm font-medium mt-3">Click to add to calendar</p>
                       </div>
                     </div>
@@ -559,12 +559,12 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📍</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-blue-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                      <h4 className="font-bold text-blue-800 text-xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Location
                       </h4>
                       <div className="space-y-2">
-                        <p className="text-blue-700 font-bold text-xl">Aroem Restaurant & Ballroom</p>
-                        <p className="text-blue-600 text-lg leading-relaxed">
+                        <p className="text-blue-700 font-bold text-lg">Aroem Restaurant & Ballroom</p>
+                        <p className="text-blue-600 text-sm leading-relaxed">
                           Jl. Dr. Wahidin No.213, Kaliwiru<br />
                           Kec. Candisari, Kota Semarang<br />
                           Jawa Tengah 50253
@@ -586,11 +586,11 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">👗</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-green-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                      <h4 className="font-bold text-green-800 text-2xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Dress Code
                       </h4>
                       <div className="space-y-3">
-                        <p className="text-green-700 font-bold text-2xl">Free Pastel Colors</p>
+                        <p className="text-green-700 font-bold text-xl">Free Pastel Colors</p>
                         <p className="text-red-500 text-sm font-medium mb-4">❌ No Blue or Pink pastels allowed</p>
                         <div className="flex gap-3">
                           <div className="relative">
@@ -615,7 +615,7 @@ export default function GuestInvitation() {
             <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl p-8 relative overflow-hidden border border-pink-200">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500"></div>
               
-              <h3 className="text-3xl font-bold text-pink-600 text-center mb-8 drop-shadow-lg" 
+              <h3 className="text-2xl font-bold text-pink-600 text-center mb-8 drop-shadow-lg" 
                   style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                 Hailey's Wishes 💕
               </h3>
@@ -741,7 +741,7 @@ export default function GuestInvitation() {
                       onChange={handleInputChange}
                       rows={4}
                       className="w-full p-4 border-2 border-pink-200 rounded-xl focus:border-pink-400 focus:outline-none resize-none"
-                      placeholder="Tuliskan ucapan selamat ulang tahun untuk putri kecil kami..."
+                      placeholder="Tuliskan ucapan selamat ulang tahun untuk Hailey..."
                       required
                     />
                   </div>
