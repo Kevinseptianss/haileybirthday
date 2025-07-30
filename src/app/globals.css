@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap');
 
 :root {
   --background: #ffffff;
@@ -13,6 +12,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Georgia, serif;
+}
+
+/* Sour Gummy font utility */
+.font-sour-gummy {
+  font-family: var(--font-sour-gummy), 'Sour Gummy', cursive;
+}
+
+/* Playwrite Australia NSW font utility */
+.font-playwrite {
+  font-family: var(--font-playwrite-au-nsw), 'Playwrite AU NSW', cursive;
 }
 
 /* Custom animations for baby-friendly theme */

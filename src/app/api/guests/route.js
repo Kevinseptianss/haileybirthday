@@ -69,3 +69,34 @@ export async function DELETE(request) {
     return Response.json({ error: 'Failed to delete guest' }, { status: 500 });
   }
 }
+
+export async function PATCH(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const guestId = searchParams.get('id');
+    
+    if (!guestId) {
+      return Response.json({ error: 'Guest ID is required' }, { status: 400 });
+    }
+
+    const body = await request.json();
+    const { name, phone } = body;
+    
+    if (!name || !phone) {
+      return Response.json({ error: 'Name and phone are required' }, { status: 400 });
+    }
+
+    const updateData = {
+      name,
+      phone,
+      updatedAt: new Date().toISOString()
+    };
+
+    await db.collection('guests').doc(guestId).update(updateData);
+    
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error('Error updating guest:', error);
+    return Response.json({ error: 'Failed to update guest' }, { status: 500 });
+  }
+}

@@ -28,15 +28,59 @@ export default function GuestInvitation() {
   });
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
   const [submittedWishes, setSubmittedWishes] = useState([]);
+  const [audioPlaying, setAudioPlaying] = useState(false);
 
   // Background music effect
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.3; // Set volume to 30%
-      audioRef.current.play().catch(e => {
-        console.log('Audio autoplay failed:', e);
-      });
+      const audio = audioRef.current;
+      audio.volume = 0.3; // Set volume to 30%
+      audio.loop = true; // Loop the audio
+      
+      // Add event listeners for audio state
+      const handlePlay = () => setAudioPlaying(true);
+      const handlePause = () => setAudioPlaying(false);
+      const handleEnded = () => setAudioPlaying(false);
+      
+      audio.addEventListener('play', handlePlay);
+      audio.addEventListener('pause', handlePause);
+      audio.addEventListener('ended', handleEnded);
+      
+      // Start playing immediately
+      const playAudio = () => {
+        audio.play().catch(e => {
+          console.log('Audio autoplay failed, trying again on user interaction:', e);
+        });
+      };
+      
+      playAudio();
+
+      // Cleanup event listeners
+      return () => {
+        audio.removeEventListener('play', handlePlay);
+        audio.removeEventListener('pause', handlePause);
+        audio.removeEventListener('ended', handleEnded);
+      };
     }
+  }, []);
+
+  // Add click listener to start audio on any user interaction
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play().catch(e => {
+          console.log('Audio play failed:', e);
+        });
+      }
+    };
+
+    document.addEventListener('click', handleUserInteraction, { once: true });
+    document.addEventListener('touchstart', handleUserInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+    };
   }, []);
 
   // Countdown timer effect
@@ -345,12 +389,12 @@ export default function GuestInvitation() {
                 Hello {guestData.name}! 👋
               </h2>
               <p className="text-xl text-pink-500 mb-6 font-medium drop-shadow-lg" 
-                 style={{ fontFamily: 'Dancing Script, cursive' }}>
+                 style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 You are specially invited to
               </p>
-              <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 drop-shadow-lg" 
+              <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 h-28 drop-shadow-lg" 
                   style={{ 
-                    fontFamily: 'Dancing Script, cursive',
+                    fontFamily: 'Sour Gummy, cursive',
                     textShadow: '3px 3px 6px rgba(214, 184, 186, 0.5)',
                     background: 'linear-gradient(45deg, #f472b6, #ec4899, #db2777)',
                     WebkitBackgroundClip: 'text',
@@ -384,7 +428,7 @@ export default function GuestInvitation() {
                 
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 mb-6" 
-                      style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                     🎊 Countdown to Magic 🎊
                   </h3>
                   
@@ -435,14 +479,14 @@ export default function GuestInvitation() {
           {/* Event Details */}
           <div className="max-w-6xl mx-auto mb-20 relative">
             {/* Decorative background elements */}
-            <div className="absolute -top-8 -left-8 w-32 h-32 bg-pink-200/20 rounded-full blur-xl animate-pulse"></div>
+            <div className="absolute -top-8 -left-8 w-32 bg-pink-200/20 rounded-full blur-xl animate-pulse"></div>
             <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-purple-200/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
             
             <div className="text-center mb-16 relative">
               <div className="inline-block relative">
-                <h3 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 mb-4 drop-shadow-lg" 
+                <h3 className="text-5xl md:text-6xl pt-10 font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 mb-4 drop-shadow-lg" 
                     style={{ 
-                      fontFamily: 'Dancing Script, cursive',
+                      fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive',
                       textShadow: '0 0 30px rgba(236, 72, 153, 0.3)'
                     }}>
                   Join the Celebration
@@ -469,7 +513,7 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📅</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-pink-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-pink-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Special Date
                       </h4>
                       <div className="space-y-2">
@@ -492,8 +536,8 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">🕕</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-purple-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                        Party Time
+                      <h4 className="font-bold text-purple-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                        Time
                       </h4>
                       <div className="space-y-2">
                         <p className="text-purple-700 font-bold text-2xl">18:00 WIB</p>
@@ -515,8 +559,8 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📍</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-blue-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                        Party Location
+                      <h4 className="font-bold text-blue-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
+                        Location
                       </h4>
                       <div className="space-y-2">
                         <p className="text-blue-700 font-bold text-xl">Aroem Restaurant & Ballroom</p>
@@ -542,18 +586,21 @@ export default function GuestInvitation() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">👗</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-green-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-green-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                         Dress Code
                       </h4>
                       <div className="space-y-3">
-                        <p className="text-green-700 font-bold text-2xl">Pastel Colors</p>
-                        <p className="text-green-600 text-lg">Soft pinks, blues, lavenders, mint greens</p>
-                        <p className="text-green-500 text-sm font-medium mb-4">Click for a surprise! 🎉</p>
+                        <p className="text-green-700 font-bold text-2xl">Free Pastel Colors</p>
+                        <p className="text-red-500 text-sm font-medium mb-4">❌ No Blue or Pink pastels allowed</p>
                         <div className="flex gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-300 to-pink-400 shadow-lg animate-bounce border-2 border-white" style={{ animationDelay: '0s' }}></div>
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-300 to-blue-400 shadow-lg animate-bounce border-2 border-white" style={{ animationDelay: '0.2s' }}></div>
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-300 to-purple-400 shadow-lg animate-bounce border-2 border-white" style={{ animationDelay: '0.4s' }}></div>
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-300 to-green-400 shadow-lg animate-bounce border-2 border-white" style={{ animationDelay: '0.6s' }}></div>
+                          <div className="relative">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-300 to-blue-400 shadow-lg border-2 border-white opacity-50"></div>
+                            <div className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-lg">❌</div>
+                          </div>
+                          <div className="relative">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-300 to-pink-400 shadow-lg border-2 border-white opacity-50"></div>
+                            <div className="absolute inset-0 flex items-center justify-center text-red-500 font-bold text-lg">❌</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -569,7 +616,7 @@ export default function GuestInvitation() {
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500"></div>
               
               <h3 className="text-3xl font-bold text-pink-600 text-center mb-8 drop-shadow-lg" 
-                  style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                 Hailey's Wishes 💕
               </h3>
               
@@ -600,7 +647,7 @@ export default function GuestInvitation() {
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-4 border-pink-400">
               <h3 className="text-3xl font-bold text-pink-600 text-center mb-8" 
-                  style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                 RSVP 💌
               </h3>
 
@@ -709,7 +756,7 @@ export default function GuestInvitation() {
               ) : (
                 <div className="text-center py-8">
                   <div className="text-6xl mb-4 animate-bounce">🎉</div>
-                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'var(--font-playwrite-au-nsw), Playwrite AU NSW, cursive' }}>
                     Thank You!
                   </h3>
                   <p className="text-pink-500 mb-6 leading-relaxed">

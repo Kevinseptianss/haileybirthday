@@ -5,6 +5,11 @@ import FloatingBalloons from "../components/FloatingBalloons";
 import ConfettiButton from "../components/ConfettiButton";
 
 export default function Home() {
+  // Always redirect to admin page
+  useEffect(() => {
+    window.location.href = '/admin';
+  }, []);
+
   // Guest name from database (simulated)
   const guestName = "Sarah"; // This would come from database/URL params
   const audioRef = useRef(null);
@@ -267,12 +272,12 @@ export default function Home() {
                 Dear {guestName},
               </h2>
               <p className="text-xl text-pink-500 mb-6 font-medium drop-shadow-lg" 
-                 style={{ fontFamily: 'Dancing Script, cursive' }}>
+                 style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 You are invited to
               </p>
               <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 drop-shadow-lg" 
                   style={{ 
-                    fontFamily: 'Dancing Script, cursive',
+                    fontFamily: 'Sour Gummy, cursive',
                     textShadow: '3px 3px 6px rgba(214, 184, 186, 0.5)',
                     background: 'linear-gradient(45deg, #f472b6, #ec4899, #db2777)',
                     WebkitBackgroundClip: 'text',
@@ -306,7 +311,7 @@ export default function Home() {
                 
                 <div className="text-center">
                   <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 mb-6" 
-                      style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      style={{ fontFamily: 'Sour Gummy, cursive' }}>
                     🎊 Countdown to Magic 🎊
                   </h3>
                   
@@ -364,7 +369,7 @@ export default function Home() {
               <div className="inline-block relative">
                 <h3 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 mb-4 drop-shadow-lg" 
                     style={{ 
-                      fontFamily: 'Dancing Script, cursive',
+                      fontFamily: 'Sour Gummy, cursive',
                       textShadow: '0 0 30px rgba(236, 72, 153, 0.3)'
                     }}>
                   Join the Celebration
@@ -391,7 +396,7 @@ export default function Home() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📅</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-pink-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-pink-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                         Special Date
                       </h4>
                       <div className="space-y-2">
@@ -414,7 +419,7 @@ export default function Home() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">🕕</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-purple-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-purple-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                         Party Time
                       </h4>
                       <div className="space-y-2">
@@ -437,7 +442,7 @@ export default function Home() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">📍</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-blue-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-blue-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                         Party Location
                       </h4>
                       <div className="space-y-2">
@@ -464,7 +469,7 @@ export default function Home() {
                       <div className="relative text-7xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">👗</div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-green-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      <h4 className="font-bold text-green-800 text-3xl mb-3 drop-shadow-sm" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                         Dress Code
                       </h4>
                       <div className="space-y-3">
@@ -491,7 +496,7 @@ export default function Home() {
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500"></div>
               
               <h3 className="text-3xl font-bold text-pink-600 text-center mb-8 drop-shadow-lg" 
-                  style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 Hailey's Wishes 💕
               </h3>
               
@@ -522,7 +527,7 @@ export default function Home() {
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-t-4 border-pink-400">
               <h3 className="text-3xl font-bold text-pink-600 text-center mb-8" 
-                  style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 RSVP 💌
               </h3>
 
@@ -631,7 +636,7 @@ export default function Home() {
               ) : (
                 <div className="text-center py-8">
                   <div className="text-6xl mb-4 animate-bounce">🎉</div>
-                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                     Thank You!
                   </h3>
                   <p className="text-pink-500 mb-6 leading-relaxed">

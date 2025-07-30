@@ -39,7 +39,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-pink-600" style={{ fontFamily: 'Dancing Script, cursive' }}>
+            <h1 className="text-2xl font-bold text-pink-600" style={{ fontFamily: 'Sour Gummy, cursive' }}>
               Hailey's 1st Birthday
             </h1>
             <button
@@ -63,7 +63,7 @@ export default function Home() {
             <div className="relative z-10">
               <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4" 
                   style={{ 
-                    fontFamily: 'Dancing Script, cursive',
+                    fontFamily: 'Sour Gummy, cursive',
                     textShadow: '2px 2px 4px rgba(214, 184, 186, 0.3)',
                     background: 'linear-gradient(45deg, #f472b6, #ec4899, #db2777)',
                     WebkitBackgroundClip: 'text',
@@ -88,7 +88,7 @@ export default function Home() {
             
             {/* Countdown Timer */}
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 max-w-md mx-auto shadow-lg">
-              <h3 className="text-pink-600 font-semibold mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
+              <h3 className="text-pink-600 font-semibold mb-4" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 Celebration in:
               </h3>
               <div className="grid grid-cols-3 gap-4 text-center">
@@ -116,7 +116,7 @@ export default function Home() {
               <div className="absolute bottom-4 left-4 text-2xl opacity-20">🎁</div>
               <div className="absolute bottom-4 right-4 text-2xl opacity-20">💖</div>
               
-              <h3 className="text-2xl font-bold text-pink-600 text-center mb-6" style={{ fontFamily: 'Dancing Script, cursive' }}>
+              <h3 className="text-2xl font-bold text-pink-600 text-center mb-6" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 Our Little Star ⭐
               </h3>
               
@@ -158,7 +158,7 @@ export default function Home() {
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500"></div>
               
               <h3 className="text-3xl font-bold text-pink-600 text-center mb-8" 
-                  style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 Celebration Details 🎉
               </h3>
               
@@ -221,7 +221,7 @@ export default function Home() {
             <div className="p-8">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-3xl font-bold text-pink-600" 
-                    style={{ fontFamily: 'Dancing Script, cursive' }}>
+                    style={{ fontFamily: 'Sour Gummy, cursive' }}>
                   RSVP 💌
                 </h3>
                 <button
@@ -341,7 +341,7 @@ export default function Home() {
               ) : (
                 <div className="text-center py-8">
                   <div className="text-6xl mb-4 animate-bounce">🎉</div>
-                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                  <h3 className="text-2xl font-bold text-pink-600 mb-4" style={{ fontFamily: 'Sour Gummy, cursive' }}>
                     Thank You!
                   </h3>
                   <p className="text-pink-500 mb-6 leading-relaxed">

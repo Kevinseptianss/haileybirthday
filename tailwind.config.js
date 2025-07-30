@@ -23,7 +23,7 @@ module.exports = {
         'theme-pink': '#d6b8ba',
       },
       fontFamily: {
-        'script': ['Dancing Script', 'cursive'],
+        'script': ['var(--font-sour-gummy)', 'Sour Gummy', 'cursive'],
         'fun': ['Pacifico', 'cursive'],
       },
       animation: {
