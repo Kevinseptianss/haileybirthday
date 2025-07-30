@@ -1,12 +1,17 @@
 'use client';
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import FloatingBalloons from "../components/FloatingBalloons";
-import ConfettiButton from "../components/ConfettiButton";
+import { useParams } from 'next/navigation';
+import FloatingBalloons from "../../../components/FloatingBalloons";
+import ConfettiButton from "../../../components/ConfettiButton";
 
-export default function Home() {
-  // Guest name from database (simulated)
-  const guestName = "Sarah"; // This would come from database/URL params
+export default function GuestInvitation() {
+  const params = useParams();
+  const guestId = params.id;
+  
+  // Guest data state
+  const [guestData, setGuestData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const audioRef = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [countdown, setCountdown] = useState({
@@ -22,32 +27,7 @@ export default function Home() {
     message: ''
   });
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
-  const [submittedWishes, setSubmittedWishes] = useState([
-    {
-      id: 1,
-      name: "Tante Sarah",
-      message: "Selamat ulang tahun yang pertama untuk Hailey! Semoga tumbuh menjadi anak yang sehat dan bahagia ❤️",
-      attending: "yes"
-    },
-    {
-      id: 2,
-      name: "Uncle Michael",
-      message: "Happy 1st birthday little princess! Wishing you all the joy in the world 🎂",
-      attending: "yes"
-    },
-    {
-      id: 3,
-      name: "Grandma Linda",
-      message: "Selamat ulang tahun sayang! Nenek sangat sayang sama Hailey. Semoga panjang umur dan sehat selalu 💕",
-      attending: "no"
-    },
-    {
-      id: 4,
-      name: "Keluarga Budi",
-      message: "Happy birthday Hailey! Semoga hari istimewamu dipenuhi dengan kebahagiaan dan cinta dari keluarga 🎈",
-      attending: "yes"
-    }
-  ]);
+  const [submittedWishes, setSubmittedWishes] = useState([]);
 
   // Background music effect
   useEffect(() => {
@@ -85,6 +65,62 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // Fetch guest data and existing wishes
+  useEffect(() => {
+    if (guestId) {
+      fetchGuestData();
+      fetchExistingWishes();
+    }
+  }, [guestId]);
+
+  const fetchGuestData = async () => {
+    try {
+      const response = await fetch(`/api/guests/${guestId}`);
+      if (response.ok) {
+        const guest = await response.json();
+        setGuestData(guest);
+        
+        // Check if already RSVP'd
+        if (guest.rsvpStatus && guest.rsvpStatus !== 'pending') {
+          setRsvpSubmitted(true);
+          const totalGuests = guest.additionalGuests ? parseInt(guest.additionalGuests) + 1 : 1;
+          setRsvpData({
+            attending: guest.rsvpStatus,
+            guestCount: totalGuests <= 3 ? totalGuests : 'custom',
+            customCount: totalGuests > 3 ? totalGuests.toString() : '',
+            message: guest.message || ''
+          });
+        }
+      } else {
+        console.error('Guest not found');
+      }
+    } catch (error) {
+      console.error('Error fetching guest data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchExistingWishes = async () => {
+    try {
+      const response = await fetch('/api/rsvp');
+      if (response.ok) {
+        const rsvpResponses = await response.json();
+        const wishes = rsvpResponses
+          .filter(rsvp => rsvp.message && rsvp.message.trim())
+          .map(rsvp => ({
+            id: rsvp.id,
+            name: rsvp.guestName || 'Guest',
+            message: rsvp.message,
+            attending: rsvp.attending
+          }));
+        setSubmittedWishes(wishes);
+      }
+    } catch (error) {
+      console.error('Error fetching wishes:', error);
+    }
+  };
+
   // Function to add event to calendar
   const addToCalendar = () => {
     const startDate = new Date('2025-08-08T18:00:00');
@@ -117,25 +153,39 @@ export default function Home() {
     e.preventDefault();
     
     try {
+      // Calculate additional guests (excluding the main guest)
+      let additionalGuests = 0;
+      if (rsvpData.attending === 'yes') {
+        if (rsvpData.guestCount === 'custom') {
+          additionalGuests = parseInt(rsvpData.customCount) - 1;
+        } else {
+          additionalGuests = parseInt(rsvpData.guestCount) - 1;
+        }
+        // Ensure additionalGuests is not negative
+        additionalGuests = Math.max(0, additionalGuests);
+      }
+
       // Save RSVP to Firebase
+      const rsvpPayload = {
+        guestId: guestId,
+        attending: rsvpData.attending,
+        additionalGuests: additionalGuests,
+        message: rsvpData.message
+      };
+
       const response = await fetch('/api/rsvp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          guestName: guestName,
-          attending: rsvpData.attending,
-          guestCount: rsvpData.attending === 'yes' ? rsvpData.guestCount : 0,
-          message: rsvpData.message
-        }),
+        body: JSON.stringify(rsvpPayload),
       });
 
       if (response.ok) {
-        // Add the wish to the wishes list
-        if (rsvpData.message.trim()) {
+        // Add the wish to the wishes list if message exists
+        if (rsvpData.message.trim() && guestData) {
           setSubmittedWishes(prev => [...prev, {
-            name: guestName, // Use guest name from database
+            name: guestData.name,
             message: rsvpData.message,
             attending: rsvpData.attending,
             id: Date.now()
@@ -143,9 +193,13 @@ export default function Home() {
         }
         console.log('RSVP Data saved successfully');
         setRsvpSubmitted(true);
+        
+        // Refresh guest data to get updated RSVP status
+        await fetchGuestData();
       } else {
-        console.error('Failed to save RSVP');
-        alert('Failed to save RSVP. Please try again.');
+        const errorData = await response.json();
+        console.error('Failed to save RSVP:', errorData);
+        alert(`Failed to save RSVP: ${errorData.error || 'Unknown error'}. Please try again.`);
       }
     } catch (error) {
       console.error('Error saving RSVP:', error);
@@ -160,6 +214,30 @@ export default function Home() {
       [name]: value
     }));
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-pink-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-pink-400 mx-auto mb-4"></div>
+          <p className="text-pink-600 text-lg">Loading invitation...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Guest not found state
+  if (!guestData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-pink-100 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-pink-600 mb-4">Invitation Not Found</h1>
+          <p className="text-gray-600">This invitation link may be invalid or expired.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-pink-100 relative overflow-hidden" style={{ fontFamily: 'Georgia, serif' }}>
@@ -264,11 +342,11 @@ export default function Home() {
             </div>
             <div className="relative z-10">
               <h2 className="text-2xl text-pink-600 mb-2 drop-shadow-lg">
-                Dear {guestName},
+                Hello {guestData.name}! 👋
               </h2>
               <p className="text-xl text-pink-500 mb-6 font-medium drop-shadow-lg" 
                  style={{ fontFamily: 'Dancing Script, cursive' }}>
-                You are invited to
+                You are specially invited to
               </p>
               <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 drop-shadow-lg" 
                   style={{ 
@@ -654,7 +732,7 @@ export default function Home() {
                     }}
                     className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full transition-colors duration-300 font-medium"
                   >
-                    Submit Another RSVP
+                    Update RSVP
                   </button>
                 </div>
               )}
