@@ -285,10 +285,14 @@ export default function Home() {
                   }}>
                 Hailey's
               </h1>
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-400 rounded"></div>
-                <span className="text-3xl animate-bounce">🎂</span>
-                <div className="w-16 h-1 bg-gradient-to-l from-pink-300 to-pink-400 rounded"></div>
+              <div className="flex items-center justify-center mb-6">
+                <Image 
+                  src="/carousel2.png" 
+                  alt="Carousel decoration" 
+                  width={80} 
+                  height={80} 
+                  className="animate-bounce rounded-full shadow-lg"
+                />
               </div>
             </div>
             

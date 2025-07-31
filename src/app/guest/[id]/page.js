@@ -402,10 +402,8 @@ export default function GuestInvitation() {
                   }}>
                 Hailey's
               </h1>
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-1 bg-gradient-to-r from-pink-300 to-pink-400 rounded"></div>
-                <span className="text-3xl animate-bounce">🎂</span>
-                <div className="w-16 h-1 bg-gradient-to-l from-pink-300 to-pink-400 rounded"></div>
+              <div className="flex items-center justify-center">
+                <Image src="/carousel2.png" alt="Carousel" width={300} height={300} />
               </div>
             </div>
             
