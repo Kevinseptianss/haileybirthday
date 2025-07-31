@@ -392,7 +392,7 @@ export default function GuestInvitation() {
                  style={{ fontFamily: 'Sour Gummy, cursive' }}>
                 You are specially invited to
               </p>
-              <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 h-28 drop-shadow-lg" 
+              <h1 className="text-6xl md:text-8xl font-bold text-pink-400 mb-4 drop-shadow-lg" 
                   style={{ 
                     fontFamily: 'Sour Gummy, cursive',
                     textShadow: '3px 3px 6px rgba(214, 184, 186, 0.5)',
