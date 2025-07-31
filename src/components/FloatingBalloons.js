@@ -21,7 +21,7 @@ export default function FloatingBalloons() {
       {balloons.map((balloon) => (
         <div
           key={balloon.id}
-          className="absolute w-8 h-10 opacity-70"
+          className="absolute w-10 h-10 opacity-70"
           style={{
             left: `${balloon.left}%`,
             animation: `float-up ${balloon.duration}s infinite linear`,

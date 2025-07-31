@@ -634,7 +634,7 @@ export default function GuestInvitation() {
                                             </div>
                                             <div className="flex-1">
                                                 <h4 className="font-semibold text-pink-700 mb-2">
-                                                    {wish.name}
+                                                    {wish.name} <br />
                                                     <span className="text-sm text-pink-500 ml-2">
                                                         ({wish.attending === 'yes' ? 'Will attend' : 'Cannot attend'})
                                                     </span>

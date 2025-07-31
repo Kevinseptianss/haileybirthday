@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Sour_Gummy, Playwrite_AU_NSW } from "next/font/google";
+import { Geist, Geist_Mono, Sour_Gummy, Playwrite_AU_NSW, Delius } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,6 +23,12 @@ const playwriteAuNsw = Playwrite_AU_NSW({
   weight: ["100", "200", "300", "400"],
 });
 
+const delius = Delius({
+  variable: "--font-delius",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export const metadata = {
   title: "Hailey's 1st Birthday Celebration 🎂",
   description: "Join us in celebrating Hailey's magical first birthday party on 8 Agustus 2025 at Aroem Restaurant & Ballroom",
@@ -37,7 +43,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${sourGummy.variable} ${playwriteAuNsw.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${sourGummy.variable} ${playwriteAuNsw.variable} ${delius.variable} antialiased`}
       >
         {children}
       </body>
