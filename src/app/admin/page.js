@@ -264,7 +264,7 @@ export default function AdminPanel() {
   const sendWhatsApp = (guest) => {
     const formattedPhone = formatPhoneForWhatsApp(guest.phone);
     const personalUrl = `${window.location.origin}/guest/${guest.id}`;
-    const message = encodeURIComponent(`Halo ${guest.name}! 👋\n\nKami mengundang Anda ke acara ulang tahun pertama Hailey! 🎂✨\n\n📅 Tanggal: 8 Agustus 2025\n🕕 Waktu: 18:00 - 22:00\n📍 Lokasi: Aroem Restaurant & Ballroom\n\nSilakan konfirmasi kehadiran Anda melalui link personal berikut:\n${personalUrl}\n\nTerima kasih! 💕`);
+    const message = encodeURIComponent(`Halo ${guest.name}! 👋\n\nKami mengundang Anda ke acara ulang tahun pertama Hailey! 🎂✨\n\n📅 Tanggal: 8 Agustus 2025\n🕕 Waktu: 18:00 - 22:00\n📍 Lokasi: Lupper\n\nSilakan konfirmasi kehadiran Anda melalui link personal berikut:\n${personalUrl}\n\nTerima kasih! 💕`);
     
     window.open(`https://wa.me/${formattedPhone}?text=${message}`, '_blank');
     
@@ -275,8 +275,8 @@ export default function AdminPanel() {
   const sendFollowUp = (guest) => {
     const formattedPhone = formatPhoneForWhatsApp(guest.phone);
     const personalUrl = `${window.location.origin}/guest/${guest.id}`;
-    const message = encodeURIComponent(`Halo ${guest.name}! 👋\n\nIni reminder untuk acara ulang tahun pertama Hailey! 🎂\n\n📅 Tanggal: 8 Agustus 2025\n🕕 Waktu: 18:00 - 22:00\n📍 Lokasi: Aroem Restaurant & Ballroom\n\nJangan lupa untuk konfirmasi kehadiran ya!\n${personalUrl}\n\nDitunggu kehadirannya! 💕`);
-    
+    const message = encodeURIComponent(`Halo ${guest.name}! 👋\n\nIni reminder untuk acara ulang tahun pertama Hailey! 🎂\n\n📅 Tanggal: 8 Agustus 2025\n🕕 Waktu: 18:00 - 22:00\n📍 Lokasi: Lupper\n\nJangan lupa untuk konfirmasi kehadiran ya!\n${personalUrl}\n\nDitunggu kehadirannya! 💕`);
+
     window.open(`https://wa.me/${formattedPhone}?text=${message}`, '_blank');
   };
 
