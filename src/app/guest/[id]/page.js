@@ -184,7 +184,7 @@ export default function GuestInvitation() {
 
   // Function to open Google Maps
   const openGoogleMaps = () => {
-    window.open('https://maps.app.goo.gl/Hd4bogQ851uYpmoi9', '_blank');
+    window.open('https://maps.app.goo.gl/hpKE9kBqJjR7KGpr6?g_st=ipc', '_blank');
   };
 
   // Function to trigger confetti
@@ -563,11 +563,11 @@ export default function GuestInvitation() {
                         Location
                       </h4>
                       <div className="space-y-2">
-                        <p className="text-blue-700 font-bold text-lg">Aroem Restaurant & Ballroom</p>
+                        <p className="text-blue-700 font-bold text-lg">Lupper</p>
                         <p className="text-blue-600 text-sm leading-relaxed">
-                          Jl. Dr. Wahidin No.213, Kaliwiru<br />
-                          Kec. Candisari, Kota Semarang<br />
-                          Jawa Tengah 50253
+                        Jl. Indraprasta No.8<br />
+                        Pendrikan Kidul, Kec. Semarang Tengah<br />
+                        Kota Semarang, Jawa Tengah 50131
                         </p>
                         <p className="text-blue-500 text-sm font-medium mt-3">Click to open in Google Maps</p>
                       </div>
