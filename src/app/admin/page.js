@@ -117,12 +117,18 @@ export default function AdminPanel() {
   const addGuest = async (e) => {
     e.preventDefault();
     try {
+      // Format the phone number before saving
+      const formattedPhone = formatPhoneForStorage(newGuest.phone);
+      
       const response = await fetch('/api/guests', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newGuest),
+        body: JSON.stringify({
+          name: newGuest.name,
+          phone: formattedPhone
+        }),
       });
 
       if (response.ok) {
@@ -175,6 +181,9 @@ export default function AdminPanel() {
 
   const saveEdit = async (guestId) => {
     try {
+      // Format the phone number before saving
+      const formattedPhone = formatPhoneForStorage(editData.phone);
+      
       const response = await fetch(`/api/guests?id=${guestId}`, {
         method: 'PATCH',
         headers: {
@@ -182,13 +191,13 @@ export default function AdminPanel() {
         },
         body: JSON.stringify({
           name: editData.name,
-          phone: editData.phone
+          phone: formattedPhone
         }),
       });
 
       if (response.ok) {
         const result = await response.json();
-        setGuests(guests.map(g => g.id === guestId ? { ...g, name: editData.name, phone: editData.phone } : g));
+        setGuests(guests.map(g => g.id === guestId ? { ...g, name: editData.name, phone: formattedPhone } : g));
         setEditingGuest(null);
         setEditData({ name: '', phone: '' });
         alert('Guest information updated successfully!');
@@ -256,6 +265,31 @@ export default function AdminPanel() {
     // If doesn't start with 62, add 62
     if (!cleanPhone.startsWith('62')) {
       cleanPhone = '62' + cleanPhone;
+    }
+    
+    return cleanPhone;
+  };
+
+  const formatPhoneForStorage = (phone) => {
+    // Remove all non-numeric characters and normalize
+    let cleanPhone = phone.replace(/\D/g, '');
+    
+    // Handle +62 format (remove leading +)
+    if (phone.startsWith('+62')) {
+      cleanPhone = phone.substring(3).replace(/\D/g, '');
+      cleanPhone = '62' + cleanPhone;
+    }
+    // Handle 0 format (Indonesian local format)
+    else if (cleanPhone.startsWith('0')) {
+      cleanPhone = '62' + cleanPhone.substring(1);
+    }
+    // Handle raw numbers without country code
+    else if (!cleanPhone.startsWith('62') && cleanPhone.length >= 9) {
+      cleanPhone = '62' + cleanPhone;
+    }
+    // If already starts with 62, keep as is
+    else if (cleanPhone.startsWith('62')) {
+      // Keep as is
     }
     
     return cleanPhone;
@@ -472,6 +506,11 @@ export default function AdminPanel() {
                             type="text"
                             value={editData.phone}
                             onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
+                            onBlur={(e) => {
+                              // Format phone number when user leaves the field
+                              const formatted = formatPhoneForStorage(e.target.value);
+                              setEditData({ ...editData, phone: formatted });
+                            }}
                             className="w-full p-2 border border-pink-300 rounded-lg text-gray-600 focus:border-pink-500 focus:outline-none"
                             placeholder="Phone Number"
                           />
@@ -632,6 +671,11 @@ export default function AdminPanel() {
                               type="text"
                               value={editData.phone}
                               onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
+                              onBlur={(e) => {
+                                // Format phone number when user leaves the field
+                                const formatted = formatPhoneForStorage(e.target.value);
+                                setEditData({ ...editData, phone: formatted });
+                              }}
                               className="flex-1 p-2 border border-pink-300 rounded-lg text-gray-600 focus:border-pink-500 focus:outline-none"
                               placeholder="Phone Number"
                             />
@@ -806,11 +850,22 @@ export default function AdminPanel() {
                 <input
                   type="tel"
                   value={newGuest.phone}
-                  onChange={(e) => setNewGuest({...newGuest, phone: e.target.value})}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    setNewGuest({...newGuest, phone: inputValue});
+                  }}
+                  onBlur={(e) => {
+                    // Format phone number when user leaves the field
+                    const formatted = formatPhoneForStorage(e.target.value);
+                    setNewGuest({...newGuest, phone: formatted});
+                  }}
                   className="w-full p-3 border border-pink-200 rounded-2xl focus:ring-2 focus:ring-pink-400 focus:border-transparent"
-                  placeholder="08123456789 or 6281234567890"
+                  placeholder="+62 817-242-406 or 08123456789"
                   required
                 />
+                <p className="text-xs text-pink-500 mt-1">
+                  Supports: +62 817-242-406, 0817242406, or 817242406
+                </p>
               </div>
               
               <div className="flex gap-3 pt-4">
