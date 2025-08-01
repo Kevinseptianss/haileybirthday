@@ -135,6 +135,23 @@ export default function GuestInvitation() {
                         message: guest.message || ''
                     });
                 }
+                // Also check RSVP collection for legacy data
+                else {
+                    const rsvpResponse = await fetch('/api/rsvp');
+                    if (rsvpResponse.ok) {
+                        const rsvpData = await rsvpResponse.json();
+                        const existingRsvp = rsvpData.rsvpResponses?.find(r => r.guestName === guest.name);
+                        if (existingRsvp) {
+                            setRsvpSubmitted(true);
+                            setRsvpData({
+                                attending: existingRsvp.attending,
+                                guestCount: existingRsvp.guestCount <= 3 ? existingRsvp.guestCount : 'custom',
+                                customCount: existingRsvp.guestCount > 3 ? existingRsvp.guestCount.toString() : '',
+                                message: existingRsvp.message || ''
+                            });
+                        }
+                    }
+                }
             } else {
                 console.error('Guest not found');
             }
@@ -255,7 +272,7 @@ export default function GuestInvitation() {
         const { name, value } = e.target;
         setRsvpData(prev => ({
             ...prev,
-            [name]: value
+            [name]: name === 'guestCount' ? (value === 'custom' ? 'custom' : parseInt(value)) : value
         }));
     };
 
@@ -698,7 +715,7 @@ export default function GuestInvitation() {
                                                             <input
                                                                 type="radio"
                                                                 name="guestCount"
-                                                                value={num}
+                                                                value={num.toString()}
                                                                 checked={rsvpData.guestCount === num}
                                                                 onChange={handleInputChange}
                                                                 className="text-pink-500 mr-2"
@@ -767,25 +784,30 @@ export default function GuestInvitation() {
                                     <p className="text-pink-500 mb-6 leading-relaxed">
                                         RSVP Anda telah diterima. Kami sangat menantikan untuk merayakan hari istimewa Hailey bersama Anda!
                                     </p>
+                                    
+                                    {/* Show current RSVP details */}
+                                    <div className="bg-pink-50 p-6 rounded-xl mb-6 text-left">
+                                        <h4 className="font-semibold text-pink-700 mb-3">Detail RSVP Anda:</h4>
+                                        <div className="space-y-2 text-sm">
+                                            <p><span className="font-medium">Kehadiran:</span> {rsvpData.attending === 'yes' ? '✅ Akan hadir' : '❌ Tidak dapat hadir'}</p>
+                                            {rsvpData.attending === 'yes' && (
+                                                <p><span className="font-medium">Jumlah Tamu:</span> {rsvpData.guestCount === 'custom' ? rsvpData.customCount : rsvpData.guestCount} orang</p>
+                                            )}
+                                            {rsvpData.message && (
+                                                <p><span className="font-medium">Pesan:</span> "{rsvpData.message}"</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                    
                                     <div className="bg-pink-100 p-4 rounded-xl mb-6">
                                         <p className="text-pink-600 text-sm">
                                             💌 Anda akan menerima detail lebih lanjut menjelang hari perayaan.
                                         </p>
                                     </div>
-                                    <button
-                                        onClick={() => {
-                                            setRsvpSubmitted(false);
-                                            setRsvpData({
-                                                attending: '',
-                                                guestCount: 1,
-                                                customCount: '',
-                                                message: ''
-                                            });
-                                        }}
-                                        className="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full transition-colors duration-300 font-medium"
-                                    >
-                                        Update RSVP
-                                    </button>
+                                    
+                                    <p className="text-xs text-pink-400 mb-4">
+                                        Ingin mengubah RSVP? Hubungi kami langsung via WhatsApp.
+                                    </p>
                                 </div>
                             )}
                         </div>
